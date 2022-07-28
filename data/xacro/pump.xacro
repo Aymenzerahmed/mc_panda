@@ -7,6 +7,11 @@
         <child link="${ns}_pump"/>
         <origin xyz="${xyz}" rpy="${rpy}"/>
       </joint>
+      <joint name="${ns}_pump_joint_ref" type="fixed">
+        <parent link="${ns}_pump"/>
+        <child link="${ns}_pump_ref"/>
+        <origin rpy="0 0 -0.7853981633974483" xyz="0 0 0.11"/>
+      </joint>
     </xacro:unless>
 
     <xacro:arg name="gazebo" default="true"/>
@@ -36,6 +41,27 @@
         </geometry>
       </collision>
 <!--  scale="0.001 0.001 0.001" -->
+    </link>
+    <link name="${ns}_pump_ref">
+        <!--collision>
+          <origin rpy="3.141592653589793 1.5707963267948966 1.5707963267948966" xyz="0.0424 0.0424 0.0"/>
+          <geometry>
+            <cylinder length="0.01" radius="0.06"/>
+          </geometry>
+        </collision>
+            <collision>
+      <origin rpy="0 0 0" xyz="0.0424 0.0424 -0.02"/>
+      <geometry>
+        <sphere radius="0.06"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0424 0.0424 -0.03"/>
+      <geometry>
+        <sphere radius="0.06"/>
+      </geometry>
+    </collision-->
+    <!--  scale="0.001 0.001 0.001" -->
     </link>
   </xacro:macro>
 </robot>

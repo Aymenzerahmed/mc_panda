@@ -76,8 +76,8 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand)
   accelerationBoundsUpper = {{"panda_joint1", {15}},   {"panda_joint2", {7.5}}, {"panda_joint3", {10}},
                              {"panda_joint4", {12.5}}, {"panda_joint5", {15}},  {"panda_joint6", {20}},
                              {"panda_joint7", {20}}};
-  _torqueDerivativeBounds.push_back(torqueDerivativeLower);
-  _torqueDerivativeBounds.push_back(torqueDerivativeUpper);
+  //_torqueDerivativeBounds.push_back(torqueDerivativeLower);
+  //_torqueDerivativeBounds.push_back(torqueDerivativeUpper);
   _jerkBounds.push_back(jerkBoundsLower);
   _jerkBounds.push_back(jerkBoundsUpper);
   _accelerationBounds.push_back(accelerationBoundsLower);
@@ -112,6 +112,7 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand)
   const double i = 0.015; // 0.01;
   const double s = 0.0075; // 0.005;
   const double d = 0.;
+  
   _minimalSelfCollisions = {{"panda_link0*", "panda_link5*", i, s, d},
                             {"panda_link1*", "panda_link5*", i, s, d},
                             {"panda_link2*", "panda_link5*", i, s, d},
