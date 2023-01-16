@@ -10,7 +10,7 @@
       <joint name="${ns}_pump_joint_ref" type="fixed">
         <parent link="${ns}_pump"/>
         <child link="${ns}_pump_ref"/>
-        <origin rpy="0 0 -0.7853981633974483" xyz="0 0 0.11"/>
+        <origin rpy="0 0 0.0" xyz="0 0 0.145"/>
       </joint>
     </xacro:unless>
 

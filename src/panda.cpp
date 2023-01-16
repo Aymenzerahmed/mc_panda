@@ -76,8 +76,8 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand)
   accelerationBoundsUpper = {{"panda_joint1", {15}},   {"panda_joint2", {7.5}}, {"panda_joint3", {10}},
                              {"panda_joint4", {12.5}}, {"panda_joint5", {15}},  {"panda_joint6", {20}},
                              {"panda_joint7", {20}}};
-  //_torqueDerivativeBounds.push_back(torqueDerivativeLower);
-  //_torqueDerivativeBounds.push_back(torqueDerivativeUpper);
+  _torqueDerivativeBounds.push_back(torqueDerivativeLower);
+  _torqueDerivativeBounds.push_back(torqueDerivativeUpper);
   _jerkBounds.push_back(jerkBoundsLower);
   _jerkBounds.push_back(jerkBoundsUpper);
   _accelerationBounds.push_back(accelerationBoundsLower);
@@ -128,30 +128,34 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand)
                             // FIXME Is this last one needed?
                             {"panda_link5*", "panda_link7*", i, s, d}};
 
+
   /* Additional self collisions */
   if(pump)
   {
-    // FIXME No pump convex ATM
-    //_commonSelfCollisions.push_back({"panda_link0", "pump", i, s, d)};
-    //_commonSelfCollisions.push_back({"panda_link1", "pump", i, s, d)};
-    //_commonSelfCollisions.push_back({"panda_link2", "pump", i, s, d)};
-    //_commonSelfCollisions.push_back({"panda_link3", "pump", i, s, d)};
+    _minimalSelfCollisions.push_back({"panda_link0*", "panda_pump", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link1*", "panda_pump", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link2*", "panda_pump", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link3*", "panda_pump", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link4*", "panda_pump", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link5*", "panda_pump", 0.12, 0.08, d});
+
+
   }
   if(foot)
   {
-    _commonSelfCollisions.push_back({"panda_link0", "foot", i, s, d});
-    _commonSelfCollisions.push_back({"panda_link1", "foot", i, s, d});
-    _commonSelfCollisions.push_back({"panda_link2", "foot", i, s, d});
-    _commonSelfCollisions.push_back({"panda_link3", "foot", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link0*", "panda_foot", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link1*", "panda_foot", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link2*", "panda_foot", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link3*", "panda_foot", i, s, d});
   }
-  if(hand)
-  {
-    _commonSelfCollisions.push_back({"panda_link0", "hand", i, s, d});
-    _commonSelfCollisions.push_back({"panda_link1", "hand", i, s, d});
-    _commonSelfCollisions.push_back({"panda_link2", "hand", i, s, d});
-    _commonSelfCollisions.push_back({"panda_link3", "hand", i, s, d});
-  }
-
+  // if(hand)
+  // {
+  //   _minimalSelfCollisions.push_back({"panda_link0*", "hand", i, s, d});
+  //   _minimalSelfCollisions.push_back({"panda_link1*", "hand", i, s, d});
+  //   _minimalSelfCollisions.push_back({"panda_link2*", "hand", i, s, d});
+  //   _minimalSelfCollisions.push_back({"panda_link3*", "hand", i, s, d});
+  // }
+  
   _commonSelfCollisions = _minimalSelfCollisions;
 
   _ref_joint_order = {"panda_joint1", "panda_joint2", "panda_joint3", "panda_joint4",
