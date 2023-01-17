@@ -175,10 +175,10 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand)
   if(hand)
   {
     // Module wide gripper configuration
-    _gripperSafety = {0.15, 1.0};
-    _grippers = {{"gripper", {"panda_finger_joint1"}, false}};
-    _ref_joint_order.push_back("panda_finger_joint1");
-    _ref_joint_order.push_back("panda_finger_joint2");
+    // _gripperSafety = {0.15, 1.0};
+    // _grippers = {{"gripper", {"panda_finger_joint1"}, false}};
+    // _ref_joint_order.push_back("panda_finger_joint1");
+    // _ref_joint_order.push_back("panda_finger_joint2");
   }
 
   mc_rtc::log::success("PandaRobotModule uses urdf_path {}", urdf_path);
