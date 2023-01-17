@@ -148,13 +148,13 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand)
     _minimalSelfCollisions.push_back({"panda_link2*", "panda_foot", i, s, d});
     _minimalSelfCollisions.push_back({"panda_link3*", "panda_foot", i, s, d});
   }
-  // if(hand)
-  // {
-  //   _minimalSelfCollisions.push_back({"panda_link0*", "hand", i, s, d});
-  //   _minimalSelfCollisions.push_back({"panda_link1*", "hand", i, s, d});
-  //   _minimalSelfCollisions.push_back({"panda_link2*", "hand", i, s, d});
-  //   _minimalSelfCollisions.push_back({"panda_link3*", "hand", i, s, d});
-  // }
+  if(hand)
+  {
+    _minimalSelfCollisions.push_back({"panda_link0*", "hand", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link1*", "hand", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link2*", "hand", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link3*", "hand", i, s, d});
+  }
   
   _commonSelfCollisions = _minimalSelfCollisions;
 
