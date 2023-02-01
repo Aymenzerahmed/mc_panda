@@ -1,5 +1,6 @@
 #include "panda.h"
 #include "devices/Pump.h"
+#include "devices/Hand.h"
 #include "devices/Robot.h"
 
 #include "config.h"
@@ -76,12 +77,12 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand)
   accelerationBoundsUpper = {{"panda_joint1", {15}},   {"panda_joint2", {7.5}}, {"panda_joint3", {10}},
                              {"panda_joint4", {12.5}}, {"panda_joint5", {15}},  {"panda_joint6", {20}},
                              {"panda_joint7", {20}}};
-  _torqueDerivativeBounds.push_back(torqueDerivativeLower);
-  _torqueDerivativeBounds.push_back(torqueDerivativeUpper);
-  _jerkBounds.push_back(jerkBoundsLower);
-  _jerkBounds.push_back(jerkBoundsUpper);
-  _accelerationBounds.push_back(accelerationBoundsLower);
-  _accelerationBounds.push_back(accelerationBoundsUpper);
+  // _torqueDerivativeBounds.push_back(torqueDerivativeLower);
+  // _torqueDerivativeBounds.push_back(torqueDerivativeUpper);
+  // _jerkBounds.push_back(jerkBoundsLower);
+  // _jerkBounds.push_back(jerkBoundsUpper);
+  // _accelerationBounds.push_back(accelerationBoundsLower);
+  // _accelerationBounds.push_back(accelerationBoundsUpper);
 
   rsdf_dir = path + "/rsdf/" + name + "/";
   calib_dir = path + "/calib";
@@ -150,10 +151,10 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand)
   }
   if(hand)
   {
-    _minimalSelfCollisions.push_back({"panda_link0*", "hand", i, s, d});
-    _minimalSelfCollisions.push_back({"panda_link1*", "hand", i, s, d});
-    _minimalSelfCollisions.push_back({"panda_link2*", "hand", i, s, d});
-    _minimalSelfCollisions.push_back({"panda_link3*", "hand", i, s, d});
+    // _minimalSelfCollisions.push_back({"panda_link0*", "hand", i, s, d});
+    // _minimalSelfCollisions.push_back({"panda_link1*", "hand", i, s, d});
+    // _minimalSelfCollisions.push_back({"panda_link2*", "hand", i, s, d});
+    // _minimalSelfCollisions.push_back({"panda_link3*", "hand", i, s, d});
   }
   
   _commonSelfCollisions = _minimalSelfCollisions;
@@ -174,11 +175,13 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand)
   /* Grippers */
   if(hand)
   {
+
     // Module wide gripper configuration
     // _gripperSafety = {0.15, 1.0};
     // _grippers = {{"gripper", {"panda_finger_joint1"}, false}};
-    // _ref_joint_order.push_back("panda_finger_joint1");
-    // _ref_joint_order.push_back("panda_finger_joint2");
+    _devices.emplace_back(new mc_panda::Hand("panda_link8", sva::PTransformd::Identity()));
+    _ref_joint_order.push_back("panda_finger_joint1");
+    _ref_joint_order.push_back("panda_finger_joint2");
   }
 
   mc_rtc::log::success("PandaRobotModule uses urdf_path {}", urdf_path);

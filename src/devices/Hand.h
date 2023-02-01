@@ -17,7 +17,7 @@
 namespace mc_panda
 {
 
-/** This device is an asynchronous wrapper around the synchronous VacuumGripper
+/** This device is an asynchronous wrapper around the synchronous Gripper
  * interface provided by libfranka */
 struct MC_PANDA_DEVICES_DLLAPI Hand : public mc_rbdyn::Device
 {
@@ -97,12 +97,16 @@ struct MC_PANDA_DEVICES_DLLAPI Hand : public mc_rbdyn::Device
   bool homing ();
 
   /**
-   * Stops a currently running vacuum gripper vacuum or drop off operation.
+   * Stops a currently running  gripper.
    *
    * @return True if the command was requested, false otherwise
    */
   bool stop();
-
+  /**
+   * Returns the current width value
+   *@return Double width value measured in [m]
+  */
+  double WidthValue();
   void addToLogger(mc_rtc::Logger & logger, const std::string & prefix);
 
   void removeFromLogger(mc_rtc::Logger & logger, const std::string & prefix);

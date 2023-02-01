@@ -89,8 +89,10 @@ bool Hand::move(double width,double speed)
 }
 bool Hand::homing()
 {
+
   if(!gripper_)
   {
+     mc_rtc::log::info("Starting Homing");
     return true;
   }
   if(busy_)
@@ -99,7 +101,7 @@ bool Hand::homing()
     return false;
   }
   busy_ = true;
-  
+ 
   command_ = {"homing", [=]() { return gripper_->homing(); }};
   last_command_id_ = 3;
   return true;
@@ -273,5 +275,16 @@ bool Hand::stop()
   last_command_id_ = 4;
   return true;
 }
-
+double Hand::WidthValue()
+{
+    if(!gripper_)
+  {
+   state_= gripper_->readOnce();
+  }
+  else
+  {
+    /**/
+  }
+ return state_.width;
+}
 } // namespace mc_panda
