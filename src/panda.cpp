@@ -18,24 +18,29 @@
 namespace mc_robots
 {
 
-inline static std::string pandaVariant(bool pump, bool foot, bool hand)
+inline static std::string pandaVariant(bool pump, bool foot, bool hand, bool fist)
 {
-  if(pump && !foot && !hand)
+  if(pump && !foot && !hand && !fist)
   {
     mc_rtc::log::info("PandaRobotModule uses the panda variant: 'panda_pump'");
     return "panda_pump";
   }
-  if(!pump && foot && !hand)
+  if(!pump && foot && !hand && !fist)
   {
     mc_rtc::log::info("PandaRobotModule uses the panda variant: 'panda_foot'");
     return "panda_foot";
   }
-  if(!pump && !foot && hand)
+  if(!pump && !foot && hand && !fist)
   {
     mc_rtc::log::info("PandaRobotModule uses the panda variant: 'panda_hand'");
     return "panda_hand";
   }
-  if(!pump && !foot && !hand)
+  if(!pump && !foot && !hand && fist)
+  {
+    mc_rtc::log::info("PandaRobotModule uses the panda variant: 'panda_fist'");
+    return "panda_fist";
+  }
+  if(!pump && !foot && !hand && !fist)
   {
     mc_rtc::log::info("PandaRobotModule uses the panda variant: 'panda_default'");
     return "panda_default";
@@ -44,8 +49,8 @@ inline static std::string pandaVariant(bool pump, bool foot, bool hand)
   return "";
 }
 
-PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand)
-: RobotModule(PANDA_DESCRIPTION_PATH, pandaVariant(pump, foot, hand))
+PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist)
+: RobotModule(PANDA_DESCRIPTION_PATH, pandaVariant(pump, foot, hand, fist))
 {
   mc_rtc::log::success("PandaRobotModule loaded with name: {}", name);
   urdf_path = path + "/" + name + ".urdf";
@@ -100,7 +105,10 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand)
   _forceSensors.push_back(
       mc_rbdyn::ForceSensor("LeftHandForceSensor", "panda_link7",
                             sva::PTransformd(mc_rbdyn::rpyToMat(3.14, 0.0, 0.0), Eigen::Vector3d(0, 0, -0.04435))));
-
+  if(fist)
+  {
+    _convexHull["panda_fist"] = {"panda_fist", path + "/convex/panda_fist/panda_fist-ch.txt"};
+  }
   if(foot)
   {
     _convexHull["panda_foot"] = {"panda_foot", path + "/convex/panda_foot/panda_foot-ch.txt"};
@@ -148,6 +156,13 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand)
     _minimalSelfCollisions.push_back({"panda_link1*", "panda_foot", i, s, d});
     _minimalSelfCollisions.push_back({"panda_link2*", "panda_foot", i, s, d});
     _minimalSelfCollisions.push_back({"panda_link3*", "panda_foot", i, s, d});
+  }
+    if(fist)
+  {
+    _minimalSelfCollisions.push_back({"panda_link0*", "panda_fist", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link1*", "panda_fist", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link2*", "panda_fist", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link3*", "panda_fist", i, s, d});
   }
   if(hand)
   {
