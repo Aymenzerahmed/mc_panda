@@ -7,6 +7,7 @@ mc_panda
 This package provides the following robot modules for [mc_rtc]:
 - `PandaDefault`: panda robot without an end-effector mounted
 - `PandaFoot`: panda robot with a static foot-like end-effector
+- `PandaFist`: panda robot with a static fist-like end-effector
 - `PandaHand`: panda robot with the standard panda gripper
 - `PandaPump`: panda robot with the standard panda pump
 

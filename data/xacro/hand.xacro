@@ -8,6 +8,11 @@
         <child link="${ns}_hand"/>
         <origin xyz="${xyz}" rpy="${rpy}"/>
       </joint>
+      <joint name="${ns}_hand_joint_ref" type="fixed">
+        <parent link="${ns}_hand"/>
+        <child link="${ns}_hand_ref"/>
+        <origin rpy="0 0 0.0" xyz="0 0 0.10"/>
+      </joint>
     </xacro:unless>
     <link name="${ns}_hand">
       <inertial>
@@ -89,5 +94,7 @@
       <limit effort="20" lower="0.0" upper="0.04" velocity="0.2"/>
       <mimic joint="${ns}_finger_joint1" />
     </joint>
+    <link name="${ns}_hand_ref">
+    </link>
   </xacro:macro>
 </robot>

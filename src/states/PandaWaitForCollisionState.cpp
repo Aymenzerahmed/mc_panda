@@ -50,6 +50,7 @@ bool PandaWaitForCollisionState::run(mc_control::fsm::Controller & ctl_)
   const auto & sensor = robot.forceSensors()[0];
   for(size_t i = 0; i < joint_contact_thresholds_.size(); ++i)
   {
+
     if(fabs(state.tau_ext_hat_filtered[i]) > joint_contact_thresholds_[i])
     {
       mc_rtc::log::info("[{}] Detected a joint-space collision for joint {}, value: {}, threshold: {}", name(),

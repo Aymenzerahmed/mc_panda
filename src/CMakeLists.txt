@@ -10,11 +10,13 @@ configure_file(api.in.h "${CMAKE_CURRENT_BINARY_DIR}/include/mc_panda/devices/ap
 set(devices_HDR
   devices/Robot.h
   devices/Pump.h
+  devices/Hand.h
   "${CMAKE_CURRENT_BINARY_DIR}/include/mc_panda/devices/api.h"
 )
 set(devices_SRC
   devices/Robot.cpp
   devices/Pump.cpp
+  devices/Hand.cpp
 )
 
 add_library(mc_panda_devices SHARED ${devices_SRC} ${devices_HDR})
