@@ -5,7 +5,7 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(FATAL_ERROR "This project doesn't support in-source builds")
 endif()
 
-project(mc_panda LANGUAGES CXX VERSION 1.1.0)
+project(mc_panda LANGUAGES CXX VERSION 1.1.1)
 enable_testing()
 set(CMAKE_CXX_STANDARD 11)
 
@@ -19,3 +19,5 @@ add_subdirectory(src)
 if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()
+
+install(FILES etc/ForceSensorCalibration/panda_default.yaml DESTINATION ${MC_CONTROLLER_RUNTIME_INSTALL_PREFIX}/ForceSensorCalibration/)
