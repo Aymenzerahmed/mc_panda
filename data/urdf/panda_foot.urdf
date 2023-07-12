@@ -503,4 +503,12 @@
       </geometry>
     </collision>
   </link>
+  <joint name="panda_foot_joint_ref" type="fixed">
+    <parent link="panda_foot"/>
+    <child link="panda_foot_ref"/>
+    <origin rpy="0 0 0" xyz="0 0 0.035"/> 
+  </joint>
+  <link name="panda_foot_ref">
+  </link>
+
 </robot>

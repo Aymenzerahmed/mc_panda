@@ -2,6 +2,7 @@
     "files.associations": {
         "*.ipp": "cpp",
         "type_traits": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "*.tcc": "cpp"
     }
 }

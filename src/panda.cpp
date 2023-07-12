@@ -82,12 +82,14 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist)
   accelerationBoundsUpper = {{"panda_joint1", {15}},   {"panda_joint2", {7.5}}, {"panda_joint3", {10}},
                              {"panda_joint4", {12.5}}, {"panda_joint5", {15}},  {"panda_joint6", {20}},
                              {"panda_joint7", {20}}};
-  // _torqueDerivativeBounds.push_back(torqueDerivativeLower);
-  // _torqueDerivativeBounds.push_back(torqueDerivativeUpper);
-  // _jerkBounds.push_back(jerkBoundsLower);
-  // _jerkBounds.push_back(jerkBoundsUpper);
-  // _accelerationBounds.push_back(accelerationBoundsLower);
-  // _accelerationBounds.push_back(accelerationBoundsUpper);
+
+  
+  _torqueDerivativeBounds.push_back(torqueDerivativeLower);
+  _torqueDerivativeBounds.push_back(torqueDerivativeUpper);
+  _jerkBounds.push_back(jerkBoundsLower);
+  _jerkBounds.push_back(jerkBoundsUpper);
+  _accelerationBounds.push_back(accelerationBoundsLower);
+  _accelerationBounds.push_back(accelerationBoundsUpper);
 
   rsdf_dir = path + "/rsdf/" + name + "/";
   calib_dir = path + "/calib";
