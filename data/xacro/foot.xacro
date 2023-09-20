@@ -10,7 +10,7 @@
       <joint name="${ns}_foot_joint_ref" type="fixed">
         <parent link="${ns}_foot"/>
         <child link="${ns}_foot_ref"/>
-        <origin rpy="0 0 0.0" xyz="0 0 0.030"/>
+        <origin rpy="0 0 0.0" xyz="0 0 0.02"/>
       </joint>
       <!-- <joint name="${ns}_foot_joint_ref" type="fixed">
         <parent link="${ns}_foot"/>

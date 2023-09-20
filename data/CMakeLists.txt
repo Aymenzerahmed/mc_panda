@@ -51,6 +51,7 @@ configure_file("xacro/hand.xacro" "${CMAKE_BINARY_DIR}/xacro/hand.xacro" @ONLY)
 configure_file("xacro/foot.xacro" "${CMAKE_BINARY_DIR}/xacro/foot.xacro" @ONLY)
 configure_file("xacro/fist.xacro" "${CMAKE_BINARY_DIR}/xacro/fist.xacro" @ONLY)
 configure_file("xacro/pump.xacro" "${CMAKE_BINARY_DIR}/xacro/pump.xacro" @ONLY)
+configure_file("xacro/push.xacro" "${CMAKE_BINARY_DIR}/xacro/push.xacro" @ONLY)
 
 set(XACRO_DEPENDS "xacro/main.xacro" "xacro/main.gazebo.xacro" "xacro/panda.xacro" "xacro/panda.gazebo.xacro")
 generate_robot("xacro/panda_default.urdf.xacro" ${XACRO_DEPENDS})
@@ -58,16 +59,17 @@ generate_robot("xacro/panda_hand.urdf.xacro" ${XACRO_DEPENDS})
 generate_robot("xacro/panda_foot.urdf.xacro" ${XACRO_DEPENDS} "xacro/foot.xacro")
 generate_robot("xacro/panda_fist.urdf.xacro" ${XACRO_DEPENDS} "xacro/fist.xacro")
 generate_robot("xacro/panda_pump.urdf.xacro" ${XACRO_DEPENDS} "xacro/pump.xacro")
-
+generate_robot("xacro/panda_push.urdf.xacro" ${XACRO_DEPENDS} "xacro/push.xacro")
 # Install extra meshes
-install(FILES meshes/foot.stl meshes/pump.dae DESTINATION "${MESHES_DESTINATION}")
-install(FILES meshes/fist.stl meshes/pump.dae DESTINATION "${MESHES_DESTINATION}")
+install(FILES meshes/foot.stl meshes/pump.dae meshes/fist.stl meshes/push.stl DESTINATION "${MESHES_DESTINATION}")
+
 # Install convex
 install(DIRECTORY convex DESTINATION "${URDF_DESTINATION}" FILES_MATCHING PATTERN "*-ch.txt")
 
 # Install rsdf
 install(DIRECTORY rsdf DESTINATION "${URDF_DESTINATION}" FILES_MATCHING PATTERN "*.rsdf")
-
+# Install calib
+install(DIRECTORY calib DESTINATION "${URDF_DESTINATION}" FILES_MATCHING PATTERN "calib_data.*")
 macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER)
   set(PROJECT_DESTINATION "${HRPSYS_BASE_PREFIX}/share/hrpsys/samples/${PROJECT_FOLDER}")
   set(MODEL_OUT "${MODEL_DESTINATION}/${PROJECT_FOLDER}.wrl")

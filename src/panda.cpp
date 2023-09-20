@@ -18,39 +18,44 @@
 namespace mc_robots
 {
 
-inline static std::string pandaVariant(bool pump, bool foot, bool hand, bool fist)
+inline static std::string pandaVariant(bool pump, bool foot, bool hand, bool fist, bool push)
 {
-  if(pump && !foot && !hand && !fist)
+  if(pump && !foot && !hand && !fist && !push)
   {
     mc_rtc::log::info("PandaRobotModule uses the panda variant: 'panda_pump'");
     return "panda_pump";
   }
-  if(!pump && foot && !hand && !fist)
+  if(!pump && foot && !hand && !fist && !push)
   {
     mc_rtc::log::info("PandaRobotModule uses the panda variant: 'panda_foot'");
     return "panda_foot";
   }
-  if(!pump && !foot && hand && !fist)
+  if(!pump && !foot && hand && !fist && !push)
   {
     mc_rtc::log::info("PandaRobotModule uses the panda variant: 'panda_hand'");
     return "panda_hand";
   }
-  if(!pump && !foot && !hand && fist)
+  if(!pump && !foot && !hand && fist && !push)
   {
     mc_rtc::log::info("PandaRobotModule uses the panda variant: 'panda_fist'");
     return "panda_fist";
   }
-  if(!pump && !foot && !hand && !fist)
+  if(!pump && !foot && !hand && !fist && !push)
   {
     mc_rtc::log::info("PandaRobotModule uses the panda variant: 'panda_default'");
     return "panda_default";
+  }
+  if(!pump && !foot && !hand && !fist && push)
+  {
+    mc_rtc::log::info("PandaRobotModule uses the panda variant: 'panda_push'");
+    return "panda_push";
   }
   mc_rtc::log::error("PandaRobotModule does not provide this panda variant...");
   return "";
 }
 
-PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist)
-: RobotModule(PANDA_DESCRIPTION_PATH, pandaVariant(pump, foot, hand, fist))
+PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist, bool push)
+: RobotModule(PANDA_DESCRIPTION_PATH, pandaVariant(pump, foot, hand, fist, push))
 {
   mc_rtc::log::success("PandaRobotModule loaded with name: {}", name);
   urdf_path = path + "/" + name + ".urdf";
@@ -84,8 +89,8 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist)
                              {"panda_joint7", {20}}};
 
   
-  _torqueDerivativeBounds.push_back(torqueDerivativeLower);
-  _torqueDerivativeBounds.push_back(torqueDerivativeUpper);
+  // _torqueDerivativeBounds.push_back(torqueDerivativeLower);
+  // _torqueDerivativeBounds.push_back(torqueDerivativeUpper);
   _jerkBounds.push_back(jerkBoundsLower);
   _jerkBounds.push_back(jerkBoundsUpper);
   _accelerationBounds.push_back(accelerationBoundsLower);
@@ -118,6 +123,10 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist)
   if(pump)
   {
     _convexHull["panda_pump"] = {"panda_pump", path + "/convex/panda_pump/panda_pump-ch.txt"};
+  }
+  if(push)
+  {
+    _convexHull["panda_push"] = {"panda_push", path + "/convex/panda_push/panda_push-ch.txt"};
   }
 
   const double i = 0.015; // 0.01;
@@ -159,12 +168,19 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist)
     _minimalSelfCollisions.push_back({"panda_link2*", "panda_foot", i, s, d});
     _minimalSelfCollisions.push_back({"panda_link3*", "panda_foot", i, s, d});
   }
-    if(fist)
+  if(fist)
   {
     _minimalSelfCollisions.push_back({"panda_link0*", "panda_fist", i, s, d});
     _minimalSelfCollisions.push_back({"panda_link1*", "panda_fist", i, s, d});
     _minimalSelfCollisions.push_back({"panda_link2*", "panda_fist", i, s, d});
     _minimalSelfCollisions.push_back({"panda_link3*", "panda_fist", i, s, d});
+  }
+  if(push)
+  {
+    _minimalSelfCollisions.push_back({"panda_link0*", "panda_push", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link1*", "panda_push", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link2*", "panda_push", i, s, d});
+    _minimalSelfCollisions.push_back({"panda_link3*", "panda_push", i, s, d});
   }
   if(hand)
   {

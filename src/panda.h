@@ -10,7 +10,7 @@ namespace mc_robots
 struct MC_PANDA_DLLAPI PandaRobotModule : public mc_rbdyn::RobotModule
 {
 public:
-  PandaRobotModule(bool pump, bool foot, bool hand, bool fist);
+  PandaRobotModule(bool pump, bool foot, bool hand, bool fist, bool push);
 };
 
 } // namespace mc_robots
