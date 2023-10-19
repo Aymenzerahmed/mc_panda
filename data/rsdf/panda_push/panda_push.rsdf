@@ -2,7 +2,7 @@
 <robot name="panda_push">
 
   <planar_surface name="Push" link="panda_push">
-    <origin rpy="0.0 -3.141592264175415 0.0" xyz="0 0 0.143" />
+    <origin rpy="1.57 0.0 0.0" xyz="0 0.003 0.17" />
     <points>
       <point xy="0.0713295042514801 0.02317599393427372" />
         <point xy="-0.02317650057375431 0.07132899761199951" />

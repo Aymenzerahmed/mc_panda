@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda_push_part">
-  <xacro:macro name="push" params="connected_to:='' ns:='' rpy:='0 0 0' xyz:='0.0 0.0 0.0' ">
+  <xacro:macro name="push" params="connected_to:='' ns:='' rpy:='0 0 0' xyz:='0.0 0.0 -0.1' ">
     <xacro:unless value="${connected_to == ''}">
       <joint name="${ns}_push_joint" type="fixed">
         <parent link="${connected_to}"/>
@@ -10,7 +10,7 @@
       <joint name="${ns}_push_joint_ref" type="fixed">
         <parent link="${ns}_push"/>
         <child link="${ns}_push_ref"/>
-        <origin rpy="0 0 0.0" xyz="0 0 0.143"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0 0 0.2"/>
       </joint>
     </xacro:unless>
 
