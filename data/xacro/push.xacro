@@ -10,7 +10,7 @@
       <joint name="${ns}_push_joint_ref" type="fixed">
         <parent link="${ns}_push"/>
         <child link="${ns}_push_ref"/>
-        <origin rpy="0.0 0.0 0.0" xyz="0 0 0.2"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0 0 0.188"/>
       </joint>
     </xacro:unless>
 
