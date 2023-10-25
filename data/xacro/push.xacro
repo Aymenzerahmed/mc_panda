@@ -10,7 +10,7 @@
       <joint name="${ns}_push_joint_ref" type="fixed">
         <parent link="${ns}_push"/>
         <child link="${ns}_push_ref"/>
-        <origin rpy="0.0 0.0 0.0" xyz="0 0 0.188"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0 0 0.18"/>
       </joint>
     </xacro:unless>
 
@@ -26,7 +26,7 @@
         <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
       </inertial>
       <visual>
-        <origin xyz="${xyz}" rpy="0 0 0"/>
+        <origin xyz="${xyz}" rpy="${rpy}"/>
         <geometry>
           <mesh filename="file://@MESHES_DESTINATION@/push.stl" />
         </geometry>
@@ -35,7 +35,7 @@
         </material>
       </visual>
       <collision>
-        <origin xyz="${xyz}" rpy="0 0 0"/>
+        <origin xyz="${xyz}" rpy="${rpy}"/>
         <geometry>
           <mesh filename="file://@MESHES_DESTINATION@/push.stl" />
         </geometry>

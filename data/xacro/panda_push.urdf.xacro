@@ -11,5 +11,5 @@
 
   <xacro:main connected_to='world'/>
   <xacro:panda xyz="0 0 0" connected_to='main_link' safety_distance="0.03"/>
-  <xacro:push ns="panda" rpy="0 ${0} ${0}" xyz="0 0.00 -0.000" connected_to="panda_link8"/>
+  <xacro:push ns="panda" rpy="0 ${0} ${pi}" xyz="0 0.00 -0.000" connected_to="panda_link8"/>
 </robot>
