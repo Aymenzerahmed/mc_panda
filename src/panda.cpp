@@ -134,7 +134,6 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist, b
       _collisionTransforms[colName] = sva::PTransformd::Identity();
     }
   }
-
   if(foot)
   {
     _convexHull["panda_foot"] = {"panda_foot", path + "/convex/panda_foot/panda_foot-ch.txt"};
@@ -170,7 +169,6 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist, b
     {"panda_link3*", "panda_link7*", i, s, d}
   };
   // clang-format on
-
 
   /* Additional self collisions */
   if(pump)
