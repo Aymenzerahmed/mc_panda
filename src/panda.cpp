@@ -15,6 +15,9 @@
 
 #include <RBDyn/parsers/urdf.h>
 
+#include <boost/filesystem.hpp>
+namespace bfs = boost::filesystem;
+
 namespace mc_robots
 {
 
@@ -116,6 +119,22 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist, b
   {
     _convexHull["panda_fist"] = {"panda_fist", path + "/convex/panda_fist/panda_fist-ch.txt"};
   }
+
+  // Add convex shapes from sch files to _convexHull
+  // NOTE that these collision shapes cannot be used directly on the real robot as the embedded controller
+  // independently checks for collision based on capsules.
+  auto convexPath = path + "/convex/panda_default";
+  for(const auto & b : mb.bodies())
+  {
+    auto ch = bfs::path{convexPath} / (b.name() + "-ch.txt");
+    if(bfs::exists(ch))
+    {
+      auto colName = "convex_" + b.name();
+      _convexHull[colName] = {b.name(), ch.string()};
+      _collisionTransforms[colName] = sva::PTransformd::Identity();
+    }
+  }
+
   if(foot)
   {
     _convexHull["panda_foot"] = {"panda_foot", path + "/convex/panda_foot/panda_foot-ch.txt"};
@@ -129,24 +148,28 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist, b
     _convexHull["panda_push"] = {"panda_push", path + "/convex/panda_push/panda_push-ch.txt"};
   }
 
-  const double i = 0.015; // 0.01;
-  const double s = 0.0075; // 0.005;
+  // By default we use very conservative self-collision shapes (capsules) defined in the urdf
+  // These match the ones used internally by the robot such that we do not trigger
+  // the self_collision_constraint_violation check.
+  const double i = 0.01;
+  const double s = 0.005;
   const double d = 0.;
-  
-  _minimalSelfCollisions = {{"panda_link0*", "panda_link5*", i, s, d},
-                            {"panda_link1*", "panda_link5*", i, s, d},
-                            {"panda_link2*", "panda_link5*", i, s, d},
-                            {"panda_link3*", "panda_link5*", i, s, d},
-                            {"panda_link0*", "panda_link6*", i, s, d},
-                            {"panda_link1*", "panda_link6*", i, s, d},
-                            {"panda_link2*", "panda_link6*", i, s, d},
-                            {"panda_link3*", "panda_link6*", i, s, d},
-                            {"panda_link0*", "panda_link7*", i, s, d},
-                            {"panda_link1*", "panda_link7*", i, s, d},
-                            {"panda_link2*", "panda_link7*", i, s, d},
-                            {"panda_link3*", "panda_link7*", i, s, d},
-                            // FIXME Is this last one needed?
-                            {"panda_link5*", "panda_link7*", i, s, d}};
+  // clang-format off
+  _minimalSelfCollisions =
+  {
+    {"panda_link0*", "panda_link5*", i, s, d},
+    {"panda_link1*", "panda_link5*", i, s, d},
+    {"panda_link2*", "panda_link5*", i, s, d},
+    {"panda_link3*", "panda_link5*", i, s, d},
+    {"panda_link0*", "panda_link6*", i, s, d},
+    {"panda_link1*", "panda_link6*", i, s, d},
+    {"panda_link2*", "panda_link6*", i, s, d},
+    {"panda_link0*", "panda_link7*", i, s, d},
+    {"panda_link1*", "panda_link7*", i, s, d},
+    {"panda_link2*", "panda_link7*", i, s, d},
+    {"panda_link3*", "panda_link7*", i, s, d}
+  };
+  // clang-format on
 
 
   /* Additional self collisions */
