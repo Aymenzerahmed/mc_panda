@@ -7,7 +7,7 @@
 #include <mc_rtc/log/Logger.h>
 
 #include <franka/robot.h>
-
+#include <franka/model.h>
 #include <condition_variable>
 #include <queue>
 #include <thread>
@@ -69,6 +69,12 @@ struct MC_PANDA_DEVICES_DLLAPI Robot : public mc_rbdyn::Device
   inline const franka::RobotState & state() const noexcept
   {
     return state_;
+  }
+
+  /** Returns the current model */
+  inline  franka::Model  model() const noexcept
+  {
+    return robot_->loadModel();
   }
 
   /** Log the state information that is not passed to mc_rtc */

@@ -91,8 +91,8 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist, b
   
   // _torqueDerivativeBounds.push_back(torqueDerivativeLower);
   // _torqueDerivativeBounds.push_back(torqueDerivativeUpper);
-  _jerkBounds.push_back(jerkBoundsLower);
-  _jerkBounds.push_back(jerkBoundsUpper);
+  // _jerkBounds.push_back(jerkBoundsLower);
+  // _jerkBounds.push_back(jerkBoundsUpper);
   _accelerationBounds.push_back(accelerationBoundsLower);
   _accelerationBounds.push_back(accelerationBoundsUpper);
 
