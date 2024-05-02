@@ -136,7 +136,7 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist, b
   _minimalSelfCollisions = {{"panda_link0*", "panda_link5*", i, s, d},
                             {"panda_link1*", "panda_link5*", i, s, d},
                             {"panda_link2*", "panda_link5*", i, s, d},
-                            {"panda_link3*", "panda_link5*", i, s, d},
+                            // {"panda_link3*", "panda_link5*", i, s, d},
                             {"panda_link0*", "panda_link6*", i, s, d},
                             {"panda_link1*", "panda_link6*", i, s, d},
                             {"panda_link2*", "panda_link6*", i, s, d},
