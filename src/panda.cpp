@@ -94,8 +94,8 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist, b
   
   // _torqueDerivativeBounds.push_back(torqueDerivativeLower);
   // _torqueDerivativeBounds.push_back(torqueDerivativeUpper);
-  _jerkBounds.push_back(jerkBoundsLower);
-  _jerkBounds.push_back(jerkBoundsUpper);
+  // _jerkBounds.push_back(jerkBoundsLower);
+  // _jerkBounds.push_back(jerkBoundsUpper);
   _accelerationBounds.push_back(accelerationBoundsLower);
   _accelerationBounds.push_back(accelerationBoundsUpper);
 
@@ -111,10 +111,17 @@ PandaRobotModule::PandaRobotModule(bool pump, bool foot, bool hand, bool fist, b
   _stance["panda_joint5"] = {mc_rtc::constants::toRad(0)};
   _stance["panda_joint6"] = {mc_rtc::constants::toRad(120)};
   _stance["panda_joint7"] = {mc_rtc::constants::toRad(0)};
-
-  _forceSensors.push_back(
+  if (false)
+  {
+    _forceSensors.push_back(
+      mc_rbdyn::ForceSensor("BaseFrameForceSensor", "panda_link0",
+                            sva::PTransformd(mc_rbdyn::rpyToMat(0, 0.0, 0.0), Eigen::Vector3d(0, 0, 0))));
+  }
+  else
+ { _forceSensors.push_back(
       mc_rbdyn::ForceSensor("LeftHandForceSensor", "panda_link7",
                             sva::PTransformd(mc_rbdyn::rpyToMat(3.14, 0.0, 0.0), Eigen::Vector3d(0, 0, -0.04435))));
+                            }
   if(fist)
   {
     _convexHull["panda_fist"] = {"panda_fist", path + "/convex/panda_fist/panda_fist-ch.txt"};

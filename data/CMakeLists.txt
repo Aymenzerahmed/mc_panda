@@ -55,13 +55,13 @@ configure_file("xacro/push.xacro" "${CMAKE_BINARY_DIR}/xacro/push.xacro" @ONLY)
 
 set(XACRO_DEPENDS "xacro/main.xacro" "xacro/main.gazebo.xacro" "xacro/panda.xacro" "xacro/panda.gazebo.xacro")
 generate_robot("xacro/panda_default.urdf.xacro" ${XACRO_DEPENDS})
-generate_robot("xacro/panda_hand.urdf.xacro" ${XACRO_DEPENDS})
+generate_robot("xacro/panda_hand.urdf.xacro" ${XACRO_DEPENDS} "xacro/hand.xacro")
 generate_robot("xacro/panda_foot.urdf.xacro" ${XACRO_DEPENDS} "xacro/foot.xacro")
 generate_robot("xacro/panda_fist.urdf.xacro" ${XACRO_DEPENDS} "xacro/fist.xacro")
 generate_robot("xacro/panda_pump.urdf.xacro" ${XACRO_DEPENDS} "xacro/pump.xacro")
 generate_robot("xacro/panda_push.urdf.xacro" ${XACRO_DEPENDS} "xacro/push.xacro")
 # Install extra meshes
-install(FILES meshes/foot.stl meshes/pump.dae meshes/fist.stl meshes/push.stl DESTINATION "${MESHES_DESTINATION}")
+install(FILES meshes/foot.stl meshes/pump.dae meshes/sc_fixation.stl  meshes/suction_cup.stl meshes/fist.stl meshes/push.stl DESTINATION "${MESHES_DESTINATION}")
 
 # Install convex
 install(DIRECTORY convex DESTINATION "${URDF_DESTINATION}" FILES_MATCHING PATTERN "*-ch.txt")
